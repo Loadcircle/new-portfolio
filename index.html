@@ -7,55 +7,56 @@
     <title>Vite App</title>
   </head>
   <body>
-    <canvas id="app">
-    </canvas>
 
-    <main>
-      <section>
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
-          Cupiditate, magni? At ipsa, esse eveniet amet atque iusto. 
-          Nostrum harum eius voluptatibus quae fugiat similique doloremque, 
-          libero excepturi labore rerum rem!
-        </p>
-
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
-          Cupiditate, magni? At ipsa, esse eveniet amet atque iusto. 
-          Nostrum harum eius voluptatibus quae fugiat similique doloremque, 
-          libero excepturi labore rerum rem!
-        </p>
-
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
-          Cupiditate, magni? At ipsa, esse eveniet amet atque iusto. 
-          Nostrum harum eius voluptatibus quae fugiat similique doloremque, 
-          libero excepturi labore rerum rem!
-        </p>
-
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
-          Cupiditate, magni? At ipsa, esse eveniet amet atque iusto. 
-          Nostrum harum eius voluptatibus quae fugiat similique doloremque, 
-          libero excepturi labore rerum rem!
-        </p>
-
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
-          Cupiditate, magni? At ipsa, esse eveniet amet atque iusto. 
-          Nostrum harum eius voluptatibus quae fugiat similique doloremque, 
-          libero excepturi labore rerum rem!
-        </p>
-
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
-          Cupiditate, magni? At ipsa, esse eveniet amet atque iusto. 
-          Nostrum harum eius voluptatibus quae fugiat similique doloremque, 
-          libero excepturi labore rerum rem!
-        </p>
-      </section>
-    </main>
+    <style>
+      #ball{
+        width: 20px;
+        height: 20px;
+        background-color: rebeccapurple;
+        border-radius: 50%;
+        z-index: 2;
+      }
+      #ball, 
+      .ball_container::before,
+      .ball_container::after{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+      }
+      .ball_container{
+        position: relative;
+        border: solid 1px;
+        width: 200px;
+        height: 200px;
+      }
+      .ball_container::before{
+        content: '';
+        width: 100%;
+        height: 1px;
+        background-color: grey;
+        display: block;
+      }
+      .ball_container::after{
+        content: '';
+        width: 1px;
+        height: 200px;
+        background-color: grey;
+        display: block;        
+      }
+    </style>
     
-    <script src="main.js" type="module"></script>
+    <h1>gamepad controller</h1>
+    
+    <div id="gamepad-info"></div>
+    <div class="ball_container">
+      <div id="ball"></div>
+    </div>
+    <div id="axes" style="display: flex; flex-direction: column;"></div>
+    <div id="buttons" style="display: flex; flex-direction: column;"></div>
+    <!-- <script src="main.js" type="module"></script> -->
+    <script src="gamepad.js" type="module"></script>
   </body>
 </html>
