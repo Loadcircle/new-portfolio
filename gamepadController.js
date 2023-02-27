@@ -24,71 +24,79 @@ export default (
         rpTopButton : (button)=>console.log('rpTopButton button pressed' + button),
         rpBottomButton : (button)=>console.log('rpBottomButton button pressed' + button),
         touchpadButton : (button)=>console.log('touchpadButton button pressed' + button),
+        leftActionButton : (button)=>console.log('leftActionButton button pressed' + button),
+        rightActionButton : (button)=>console.log('rightActionButton button pressed' + button),
     })=>{
 
     for (const [index, axis] of gamepad.axes.entries()) {
         switch (index) {
-            case 1: //left joystick horizontal axis
-                joysticksCallbacks.leftHorizontal(axis);
+            case 0: //left joystick horizontal axis
+                if(joysticksCallbacks.leftHorizontal) joysticksCallbacks.leftHorizontal(axis);
                 break;
-            case 2: //right joystick horizontal axis
-                joysticksCallbacks.leftVertical(axis);
+            case 1: //right joystick horizontal axis
+                if(joysticksCallbacks.leftVertical) joysticksCallbacks.leftVertical(axis);
                 break;
-            case 3: //left joystick vertical axis
-                joysticksCallbacks.rightHorizontal(axis);
+            case 2: //left joystick vertical axis
+                if(joysticksCallbacks.rightHorizontal) joysticksCallbacks.rightHorizontal(axis);
                 break;
-            case 4: //right joystick vertical axis
-                joysticksCallbacks.rightVertical(axis);
+            case 3: //right joystick vertical axis
+                if(joysticksCallbacks.rightVertical) joysticksCallbacks.rightVertical(axis);
                 break;
         }
     }
      
     for (const [index, button] of gamepad.buttons.entries()) {
         switch (index) {
+            case 0: // button
+                if(buttonsCallbacks.rpBottomButton) buttonsCallbacks.rpBottomButton(button);
+                break;
             case 1: // button
-                buttonsCallbacks.leftArrowButton(button);
+                if(buttonsCallbacks.rpRightButton) buttonsCallbacks.rpRightButton(button);
                 break;
             case 2: // button
-                buttonsCallbacks.rightArrowButton(button);
+                if(buttonsCallbacks.rpLeftButton) buttonsCallbacks.rpLeftButton(button);
                 break;
             case 3: // button
-                buttonsCallbacks.topArrowButton(button);
+                if(buttonsCallbacks.rpTopButton) buttonsCallbacks.rpTopButton(button);
                 break;
             case 4: // button
-                buttonsCallbacks.bottomArrowButton(button);
+                if(buttonsCallbacks.L1Button) buttonsCallbacks.L1Button(button);
                 break;
             case 5: // button
-                buttonsCallbacks.L1Button(button);
+                if(buttonsCallbacks.R1Button) buttonsCallbacks.R1Button(button);
                 break;
             case 6: // button
-                buttonsCallbacks.L2Button(button);
+                if(buttonsCallbacks.L2Button) buttonsCallbacks.L2Button(button);
                 break;
             case 7: // button
-                buttonsCallbacks.L3Button(button);
+                if(buttonsCallbacks.R2Button) buttonsCallbacks.R2Button(button);
                 break;
             case 8: // button
-                buttonsCallbacks.R1Button(button);
+                if(buttonsCallbacks.leftActionButton) buttonsCallbacks.leftActionButton(button);
                 break;
             case 9: // button
-                buttonsCallbacks.R2Button(button);
+                if(buttonsCallbacks.rightActionButton) buttonsCallbacks.rightActionButton(button);
                 break;
             case 10: // button
-                buttonsCallbacks.R3Button(button);
+                if(buttonsCallbacks.L3Button) buttonsCallbacks.L3Button(button);
                 break;
             case 11: // button
-                buttonsCallbacks.rpLeftButton(button);
+                if(buttonsCallbacks.R3Button) buttonsCallbacks.R3Button(button);
                 break;
             case 12: // button
-                buttonsCallbacks.rpRightButton(button);
+                if(buttonsCallbacks.topArrowButton) buttonsCallbacks.topArrowButton(button);
                 break;
             case 13: // button
-                buttonsCallbacks.rpTopButton(button);
+                if(buttonsCallbacks.bottomArrowButton) buttonsCallbacks.bottomArrowButton(button);
                 break;
             case 14: // button
-                buttonsCallbacks.rpBottomButton(button);
+                if(buttonsCallbacks.leftArrowButton) buttonsCallbacks.leftArrowButton(button);
                 break;
             case 15: // button
-                buttonsCallbacks.touchpadButton(button);
+                if(buttonsCallbacks.rightActionButton) buttonsCallbacks.rightActionButton(button);
+                break;
+            case 16: // button
+                if(buttonsCallbacks.touchpadButton) buttonsCallbacks.touchpadButton(button);
                 break;
         }
     }

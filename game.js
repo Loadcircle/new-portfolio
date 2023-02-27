@@ -25,8 +25,10 @@ class CharacterController{
         this.animation(); 
     }
     animation(){
+        const joysticksCallbacks = this.controlActions.joysticksCallbacks;
+        const buttonsCallbacks = this.controlActions.buttonsCallbacks;
         const gamepad = navigator.getGamepads()[0];
-        gamepadController(gamepad);
+        gamepadController(gamepad, joysticksCallbacks, buttonsCallbacks);
         this.animationFrame = requestAnimationFrame(()=>this.animation());
     }
 
@@ -35,25 +37,51 @@ class CharacterController{
     get controlActions(){
         return {
             joysticksCallbacks: {
-                leftVertical : this.movementAction,
+                leftHorizontal : (axis)=>this.movementAction(axis),
             },
             buttonsCallbacks : {
-                rpBottomButton: this.jumpAction,
-                rpLeftButton: this.attackAction,
+                rpBottomButton: (button)=>this.jumpAction(button),
+                rpLeftButton: (button)=>this.attackAction(button),
             }
         }
     }
     movementAction(axis){
-        console.log(axis)
+        if(axis < 0.1 && axis > - 0.1){
+            this.samuari.classList.remove('walk', 'run');            
+        }else if(axis < -0.6 || axis > 0.6){
+            this.samuari.classList.add('run');
+        }
+        else{
+            this.samuari.classList.add('walk');
+        }
+
+        this.setDirection(axis);
+    }
+    setDirection(axis){
+        const position = this.samuari.dataset.position || 0;
+        if(axis < -0.1){
+            this.samuraiDirection.style.transform = 'scaleX(-1)';
+            // if(position < 0){
+            //     this.samuari.style.transform = `translateX(${position+1}px)`;
+            //     this.samuari.dataset.position = position+1;
+            // }
+        }else if(axis > 0.1){
+            this.samuraiDirection.style.transform = 'scaleX(1)';           
+            console.log(position)
+            if(position <= 0){
+                this.samuari.style.transform = `translateX(${position+0.1}px)`;
+                this.samuari.dataset.position = position-0.1;
+            }
+        }
     }
     jumpAction(button){
+        if(!button.pressed) return null
         if(this.inAnimation) return null;
-        console.log(button);
         this.toggleClass('jump');
     }
     attackAction(button){
+        if(!button.pressed) return null
         if(this.inAnimation) return null;
-        console.log(button);
         this.toggleClass('attack');
     }
 
