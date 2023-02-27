@@ -13,36 +13,40 @@
         margin: 0;
         padding: 20px;
       }
-      .animation_container{
+      .app_container{
         display: flex;
       }
-      .animation{
+      .samuari{
         width: 128px;
         height: 128px;
+        background-image : url(/sprites/Idle.png);
+        animation: moveX 1s steps(9) infinite;
+      }
+      .samuari.jump{
+        background-image : url(/sprites/Jump.png);
+      }
+      .samuari.walk{
         background-image : url(/sprites/Walk.png);
-        animation: moveX 1s steps(9) infinite, translateX 10s linear infinite alternate, changeDirection 20s infinite;
-        /* animation: changeDirection 1s infinite; */
+      }
+      .samuari.run{
+        background-image : url(/sprites/Run.png);
+      }
+      .samuari.attack{
+        background-image : url(/sprites/Attack_1.png);
       }
       @keyframes moveX{
         from{background-position-x:0px;}
         to{background-position-x:-1152px;}
       }
-      @keyframes translateX{
-        from{margin-left:0px;}
-        to{margin-left : calc(100% - 168px);}
-      }
-      @keyframes changeDirection{
-        0% {transform: scaleX(1);}
-        49% {transform: scaleX(1)}
-        50% {transform: scaleX(-1)}
-        100% {transform: scaleX(-1);}
-      }
     </style>
     
     <h1>gamepad controller</h1>
     
-    <div class="animation_container">
-      <div class="animation"></div>
+    <div class="app_container">
+      <div class="samuraiDirection">
+        <div class="samuari"></div>
+      </div>
     </div>
+    <script src="game.js" type="module"></script>
   </body>
 </html>

@@ -1,4 +1,4 @@
-export default gamepadController = (
+export default (
     gamepad, 
     //calbacks object with each function for each joystick direction, each function receive axis value
     joysticksCallbacks = {
