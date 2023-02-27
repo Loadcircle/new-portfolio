@@ -2,7 +2,8 @@ import './style.css';
 
 import * as THREE from 'three';
 
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 const scene = new THREE.Scene();
 
@@ -28,20 +29,25 @@ const torus = new THREE.Mesh(geometry, material);
 torus.position.z = -20;
 
 const pointLight =  new THREE.PointLight(0xffffff);
-pointLight.position.set(10,10,10);
-const ambienLight = new THREE.AmbientLight(0xffffff);
-
-scene.add(torus, pointLight, ambienLight);
+pointLight.position.set(10, 10, 10);
+const ambienLight = new THREE.AmbientLight(0xffffff, 100);
+ambienLight.position.set(10, 10, 10)
+// scene.add(ambienLight);
+console.log(ambienLight);
 
 const lightHelper = new THREE.PointLightHelper(pointLight);
 
+const directionalLight = new THREE.DirectionalLight( 0xffffff, 10);
+scene.add( directionalLight );
+console.log(directionalLight)
+
 // scene.add(lightHelper);
 
-const gridHelper = new THREE.GridHelper(200, 50);
+const gridHelper = new THREE.GridHelper(500, 100);
 
-// scene.add(gridHelper);
+scene.add(gridHelper);
 
-// const controls = new OrbitControls(camera, renderer.domElement);
+const controls = new OrbitControls(camera, renderer.domElement);
 
 
 const addStars = ()=>{
@@ -58,11 +64,11 @@ const addStars = ()=>{
 
 Array(200).fill().forEach(addStars);
 
-const spaceTexture = new THREE.TextureLoader().load('./public/space_bg.jpeg');
+const spaceTexture = new THREE.TextureLoader().load('/space_bg.jpeg');
 scene.background = spaceTexture;
 
-const moonTexture = new THREE.TextureLoader().load('./public/moon.jpeg');
-const moonNormalTexture = new THREE.TextureLoader().load('./public/normal.jpeg');
+const moonTexture = new THREE.TextureLoader().load('/moon.jpeg');
+const moonNormalTexture = new THREE.TextureLoader().load('/normal.jpeg');
 
 const moon = new THREE.Mesh(
     new THREE.SphereGeometry(3, 32, 32),
@@ -72,7 +78,7 @@ const moon = new THREE.Mesh(
     }),
 );
 
-scene.add(moon);
+// scene.add(moon);
 moon.position.z = 0;
 moon.position.setX(-10);
 
@@ -86,8 +92,25 @@ const moveCamera = ()=>{
 
     // moon.position.z = t * 0.1;
 }
-moveCamera();
+// moveCamera();
 document.body.onscroll = moveCamera;
+
+
+const loader = new GLTFLoader();
+loader.load( 'scene.gltf', function ( gltf ) {
+    console.log(gltf)
+
+    gltf.scene.scale.x = .1;
+    gltf.scene.scale.y = .1;
+    gltf.scene.scale.z = .1;
+	scene.add( gltf.scene );
+
+}, undefined, function ( error ) {
+
+	console.error( error );
+
+} );
+
 
 const animate = ()=>{
     requestAnimationFrame(animate);
@@ -100,7 +123,7 @@ const animate = ()=>{
     moon.rotation.y += 0.01;
     moon.rotation.z += 0.01;
 
-    // controls.update();
+    controls.update();
     renderer.render(scene, camera);
 }
 animate();
