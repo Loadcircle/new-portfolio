@@ -9,54 +9,40 @@
   <body>
 
     <style>
-      #ball{
-        width: 20px;
-        height: 20px;
-        background-color: rebeccapurple;
-        border-radius: 50%;
-        z-index: 2;
+      body{
+        margin: 0;
+        padding: 20px;
       }
-      #ball, 
-      .ball_container::before,
-      .ball_container::after{
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin: auto;
+      .animation_container{
+        display: flex;
       }
-      .ball_container{
-        position: relative;
-        border: solid 1px;
-        width: 200px;
-        height: 200px;
+      .animation{
+        width: 128px;
+        height: 128px;
+        background-image : url(/sprites/Walk.png);
+        animation: moveX 1s steps(9) infinite, translateX 10s linear infinite alternate, changeDirection 20s infinite;
+        /* animation: changeDirection 1s infinite; */
       }
-      .ball_container::before{
-        content: '';
-        width: 100%;
-        height: 1px;
-        background-color: grey;
-        display: block;
+      @keyframes moveX{
+        from{background-position-x:0px;}
+        to{background-position-x:-1152px;}
       }
-      .ball_container::after{
-        content: '';
-        width: 1px;
-        height: 200px;
-        background-color: grey;
-        display: block;        
+      @keyframes translateX{
+        from{margin-left:0px;}
+        to{margin-left : calc(100% - 168px);}
+      }
+      @keyframes changeDirection{
+        0% {transform: scaleX(1);}
+        49% {transform: scaleX(1)}
+        50% {transform: scaleX(-1)}
+        100% {transform: scaleX(-1);}
       }
     </style>
     
     <h1>gamepad controller</h1>
     
-    <div id="gamepad-info"></div>
-    <div class="ball_container">
-      <div id="ball"></div>
+    <div class="animation_container">
+      <div class="animation"></div>
     </div>
-    <div id="axes" style="display: flex; flex-direction: column;"></div>
-    <div id="buttons" style="display: flex; flex-direction: column;"></div>
-    <!-- <script src="main.js" type="module"></script> -->
-    <script src="gamepad.js" type="module"></script>
   </body>
 </html>
