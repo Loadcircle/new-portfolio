@@ -20,8 +20,6 @@ window.addEventListener('gamepadconnected', (event) => {
                 ball.style.top = (axis*180)+'px';
             }
 
-
-
             output.insertAdjacentHTML('beforeend',
             `<label>${index}
                 <progress value=${axis * 0.5 + 0.5}></progress>
