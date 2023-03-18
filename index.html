@@ -16,27 +16,27 @@
       .app_container{
         display: flex;
       }
-      .samuari{
+      .samurai{
         width: 128px;
         height: 128px;
         background-image : url(/sprites/Idle.png);
         animation: moveX 1s steps(9) infinite;
       }
-      .samuari.jump{
-        background-image : url(/sprites/Jump.png);
-      }
-      .samuari.walk{
+      .samurai.walk{
         background-image : url(/sprites/Walk.png);
       }
-      .samuari.run{
+      .samurai.run{
         background-image : url(/sprites/Run.png);
       }
-      .samuari.attack{
+      .samurai.attack{
         background-image : url(/sprites/Attack_1.png);
+      }
+      .samurai.jump{
+        background-image : url(/sprites/Jump.png);
       }
       @keyframes moveX{
         from{background-position-x:0px;}
-        to{background-position-x:-1152px;}
+        to{background-position-x:-1150px;}
       }
     </style>
     
@@ -44,7 +44,7 @@
     
     <div class="app_container">
       <div class="samuraiDirection">
-        <div class="samuari"></div>
+        <div class="samurai"></div>
       </div>
     </div>
     <script src="game.js" type="module"></script>
